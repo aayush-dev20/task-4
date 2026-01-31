@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Design & Validation | Task 4</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-file-alt"></i>
+                <h1>Form Validation System</h1>
+            </div>
+            <p class="subtitle">Task 4: Create and validate a form with JavaScript</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Form Section -->
+            <div class="form-section">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2><i class="fas fa-user-plus"></i> Registration Form</h2>
+                        <p>Please fill out all required fields. Fields marked with <span class="required">*</span> are mandatory.</p>
+                    </div>
+                    
+                    <form id="registrationForm" novalidate>
+                        <!-- Personal Information -->
+                        <fieldset class="form-fieldset">
+                            <legend><i class="fas fa-id-card"></i> Personal Information</legend>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name <span class="required">*</span></label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name">
+                                    </div>
+                                    <div class="validation-message" id="firstNameValidation"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastName">Last Name <span class="required">*</span></label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name">
+                                    </div>
+                                    <div class="validation-message" id="lastNameValidation"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="email" name="email" placeholder="example@domain.com">
+                                </div>
+                                <div class="validation-message" id="emailValidation"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890">
+                                </div>
+                                <div class="validation-message" id="phoneValidation"></div>
+                                <small class="hint">Format: (123) 456-7890 or 123-456-7890</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dob">Date of Birth <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <input type="date" id="dob" name="dob">
+                                </div>
+                                <div class="validation-message" id="dobValidation"></div>
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Account Information -->
+                        <fieldset class="form-fieldset">
+                            <legend><i class="fas fa-key"></i> Account Information</legend>
+                            
+                            <div class="form-group">
+                                <label for="username">Username <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-at"></i>
+                                    <input type="text" id="username" name="username" placeholder="Choose a username">
+                                </div>
+                                <div class="validation-message" id="usernameValidation"></div>
+                                <small class="hint">4-20 characters, letters and numbers only</small>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="password">Password <span class="required">*</span></label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="password" name="password" placeholder="Create a password">
+                                        <button type="button" class="password-toggle" id="togglePassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="validation-message" id="passwordValidation"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password">
+                                    </div>
+                                    <div class="validation-message" id="confirmPasswordValidation"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="password-strength">
+                                <h4>Password Strength:</h4>
+                                <div class="strength-meter">
+                                    <div class="strength-bar" id="strengthBar"></div>
+                                </div>
+                                <div class="strength-label" id="strengthLabel">Very Weak</div>
+                                <ul class="password-requirements">
+                                    <li id="reqLength"><i class="fas fa-times"></i> At least 8 characters</li>
+                                    <li id="reqUppercase"><i class="fas fa-times"></i> One uppercase letter</li>
+                                    <li id="reqLowercase"><i class="fas fa-times"></i> One lowercase letter</li>
+                                    <li id="reqNumber"><i class="fas fa-times"></i> One number</li>
+                                    <li id="reqSpecial"><i class="fas fa-times"></i> One special character</li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Additional Information -->
+                        <fieldset class="form-fieldset">
+                            <legend><i class="fas fa-info-circle"></i> Additional Information</legend>
+                            
+                            <div class="form-group">
+                                <label for="country">Country <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-globe"></i>
+                                    <select id="country" name="country">
+                                        <option value="">Select your country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="FR">France</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="validation-message" id="countryValidation"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="zipCode">ZIP / Postal Code</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-mail-bulk"></i>
+                                    <input type="text" id="zipCode" name="zipCode" placeholder="Enter ZIP code">
+                                </div>
+                                <div class="validation-message" id="zipCodeValidation"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="gender" value="male">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Male</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="gender" value="female">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Female</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="gender" value="other">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Other</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="gender" value="prefer-not-to-say">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Prefer not to say</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Subscribe to Newsletter</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">Yes, I want to receive newsletters and updates</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comments">Additional Comments</label>
+                                <textarea id="comments" name="comments" rows="4" placeholder="Any additional information or comments..."></textarea>
+                                <div class="char-counter">
+                                    Characters: <span id="charCount">0</span>/500
+                                </div>
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="form-group terms-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="terms" name="terms">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">I agree to the <a href="#" id="termsLink">Terms and Conditions</a> <span class="required">*</span></span>
+                            </label>
+                            <div class="validation-message" id="termsValidation"></div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" id="submitBtn" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit Form
+                            </button>
+                            <button type="button" id="resetBtn" class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> Reset Form
+                            </button>
+                            <button type="button" id="demoBtn" class="btn btn-outline">
+                                <i class="fas fa-magic"></i> Fill Demo Data
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Validation Summary -->
+                <div class="validation-summary" id="validationSummary">
+                    <h3><i class="fas fa-clipboard-check"></i> Validation Summary</h3>
+                    <div class="summary-content">
+                        <p id="summaryMessage">Form has not been submitted yet. Please fill out the form and submit to see validation results.</p>
+                        <div class="summary-details" id="summaryDetails"></div>
+                    </div>
+                    <div class="validation-stats">
+                        <div class="stat">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Valid Fields: <strong id="validCount">0</strong>/<span id="totalFields">14</span></span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Errors: <strong id="errorCount">0</strong></span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-asterisk"></i>
+                            <span>Required Fields: <strong id="requiredCount">0</strong>/<span id="totalRequired">9</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Submission Results -->
+            <div class="results-section">
+                <div class="results-card">
+                    <h3><i class="fas fa-database"></i> Form Submission Results</h3>
+                    <div class="results-container" id="resultsContainer">
+                        <div class="empty-results">
+                            <i class="fas fa-inbox"></i>
+                            <h4>No Submissions Yet</h4>
+                            <p>Your submitted form data will appear here.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="results-controls">
+                        <button type="button" id="clearResultsBtn" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Clear All Results
+                        </button>
+                        <button type="button" id="exportResultsBtn" class="btn btn-outline">
+                            <i class="fas fa-download"></i> Export as JSON
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Live Preview -->
+                <div class="preview-card">
+                    <h3><i class="fas fa-eye"></i> Live Form Data Preview</h3>
+                    <div class="preview-container" id="previewContainer">
+                        <p>Form data will update in real-time as you type.</p>
+                        <pre id="formDataPreview">{
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "phone": "",
+  "dob": "",
+  "username": "",
+  "password": "********",
+  "country": "",
+  "newsletter": true,
+  "terms": false
+}</pre>
+                    </div>
+                    <div class="preview-update">
+                        <i class="fas fa-sync-alt"></i> <span id="lastUpdate">Last update: Never</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3><i class="fas fa-file-signature"></i> Form Validation System</h3>
+                    <p>Task 4: Form Design & Validation - Demonstrating form handling and input validation with JavaScript.</p>
+                </div>
+                
+                <div class="footer-stats">
+                    <div class="stat">
+                        <i class="fas fa-check-square"></i>
+                        <span>Successful Submissions: <strong id="successSubmissions">0</strong></span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Failed Attempts: <strong id="failedAttempts">0</strong></span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <span>Form Active: <strong id="formTimer">0</strong> seconds</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Created for Form Design & Validation Task | All validation logic implemented with vanilla JavaScript</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
